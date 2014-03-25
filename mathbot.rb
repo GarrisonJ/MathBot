@@ -7,7 +7,7 @@ require "openssl"
 @server       = "irc.cat.pdx.edu"
 @port         = "6697"
 @nick         = "Math"
-@channel      = "#robots"
+@channel      = "#test-test"
 @channelPass  = "catsonly"
 
 # Connect
@@ -45,6 +45,9 @@ until @irc_server.eof? do
   msg = @irc_server.gets
   p msg
   calc = msg.split(":")[2]
+  if msg =~ /^PING/
+    @irc_server.puts "PONG" 
+  end
   result = nil
   if calc != nil 
     if calc.chomp == "Math help"
