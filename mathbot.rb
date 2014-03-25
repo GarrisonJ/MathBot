@@ -21,7 +21,7 @@ require "openssl"
 @irc_server.puts "JOIN #{@channel} #{@channelPass}"
 
 def well_formed_equation? (astring)
-  (astring.delete "1234567890+-/*)(").chomp.length == 0 and
+  (astring.delete "1234567890+\-/*)(").chomp.length == 0 and
   (astring.include? "+" or
    astring.include? "-" or
    astring.include? ")" or
