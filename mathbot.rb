@@ -3,7 +3,7 @@ require "socket"
 require "openssl"
 
 # Variables
-@help_msg     = "I can calculate the following operations on the integers: \\ * - + ()"
+@help_msg     = "Use the following symbols in a message: 0-9, +, -, /, *, (, ). If it's a syntactically correct mathematical expression, I will try to evaluate it."
 @server       = "irc.cat.pdx.edu"
 @port         = "6697"
 @nick         = "Math"
@@ -19,7 +19,6 @@ require "openssl"
 @irc_server.puts "USER Math 0 Math :I iz a bot"
 @irc_server.puts "NICK #{@nick}"
 @irc_server.puts "JOIN #{@channel} #{@channelPass}"
-
 
 def well_formed_equation? (astring)
   (astring.delete "1234567890+-/*)(").chomp.length == 0 and
