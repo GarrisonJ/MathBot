@@ -4,9 +4,9 @@ require "openssl"
 
 # Variables
 @help_msg     = ["Use the following symbols in a message: 0-9, +, -, /, *, (, ), !.", \
-								"If it's a syntactically correct mathematical expression, I will try to evaluate it.",\
-								"Use '**' for exponentiation.",\
-								"The variable '!' holds the result of the previous calculation."]
+                 "If it's a syntactically correct mathematical expression, I will try to evaluate it.",\
+                 "Use '**' for exponentiation.",\
+                 "The variable '!' holds the result of the previous calculation."]
 @server       = "irc.cat.pdx.edu"
 @port         = "6697"
 @nick         = "Math"
@@ -26,9 +26,9 @@ require "openssl"
 @previous_value = 0
 
 def help_msg
-	@help_msg.each do |msg|
-      @irc_server.puts "PRIVMSG #{@channel} :" + msg
-	end
+  @help_msg.each do |msg|
+    @irc_server.puts "PRIVMSG #{@channel} :" + msg
+  end
 end
 
 
@@ -43,7 +43,7 @@ def well_formed_equation? (astring)
 end
 
 def replace_special_characters! (astring)
-	astring.gsub! /!/,  @previous_value.to_s
+  astring.gsub! /!/,  @previous_value.to_s
 end
 
 def evaluate (calculation)
@@ -58,7 +58,7 @@ end
 
 until @irc_server.eof? do
   msg = @irc_server.gets
-  p msg
+  puts msg
   if msg =~ /^PING/
     @irc_server.puts "PONG" 
   end
@@ -66,14 +66,14 @@ until @irc_server.eof? do
   result = nil
   if calc != nil 
     if calc.chomp == "Math help"
-			help_msg
+      help_msg
     else well_formed_equation? calc
-			replace_special_characters! calc
+      replace_special_characters! calc
       result = evaluate calc
     end
   end
   if result != nil
-		@previous_value = result.to_s
+    @previous_value = result.to_s
     @irc_server.puts "PRIVMSG #{@channel} :" + result.to_s
   end
 end
